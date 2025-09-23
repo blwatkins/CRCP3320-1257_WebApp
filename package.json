@@ -1,0 +1,29 @@
+{
+  "name": "crcp3320-1257_webapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web Application example for CRCP 3320; Fall 2025 term.",
+  "homepage": "https://github.com/blwatkins/CRCP3320-1257_WebApp#readme",
+  "bugs": {
+    "url": "https://github.com/blwatkins/CRCP3320-1257_WebApp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blwatkins/CRCP3320-1257_WebApp.git"
+  },
+  "license": "MIT",
+  "author": "brittni watkins",
+  "type": "module",
+  "main": "app.mjs",
+  "scripts": {
+    "start": "node src/app.mjs",
+    "dev": "nodemon src/app.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
