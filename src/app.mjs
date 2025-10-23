@@ -13,10 +13,16 @@ const colors = [];
 app.use(express.json());
 app.use(express.static('public'));
 
+app.set('views', './views');
+app.set('view engine', 'ejs');
+
 app.get('/randomColor', (request, response) => {
   const hexColor = RandomColor.getRandomHex();
-  response.send(`<html><head><title>Random Color</title></head><body style="background: ${hexColor};"></body></html>`);
-  console.log(encodeURI("<script>alert('XSS')</script>"));
+  response.render('random-color', { hexColor: hexColor });
+});
+
+app.get('/randomNumber', (request, response) => {
+  response.render('random-number');
 });
 
 app.get('/color/:colorName', (request, response) => {
@@ -57,7 +63,6 @@ app.post('/api/color', (request, response) => {
   }
 });
 
-// change - add next parameter
 app.use((error, request, response, next) => {
   console.error(error);
   response.status(500).send('Internal Server Error');
