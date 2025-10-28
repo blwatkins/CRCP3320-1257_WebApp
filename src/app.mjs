@@ -4,6 +4,7 @@ import { encode } from 'html-entities';
 
 import { RandomColor } from './utils/random-color.mjs';
 import { RandomNumber } from './utils/random-number.mjs';
+import { History } from './utils/history.mjs';
 
 const app = express();
 const port = 3000;
@@ -38,6 +39,15 @@ app.get('/color/:colorName', (request, response) => {
   response.send(`<html><head><title>${colorName}</title></head><body style="background: ${colorName};"><h1>${colorName}</h1></body></html>`);
 });
 
+app.get('/pictures', (request, response) => {
+  response.render('pictures');
+});
+
+app.get('/history', async (request, response) => {
+  const text = await History.getRandomThing();
+  response.send(encode(text));
+});
+
 app.get('/api/randomColor', (request, response) => {
   const hexColor = RandomColor.getRandomHex();
   response.json({ color: hexColor });
@@ -61,6 +71,10 @@ app.post('/api/color', (request, response) => {
     // bad request
     response.status(400).send('Bad Request');
   }
+});
+
+app.use((request, response, next) => {
+  response.status(404).render('errors/404');
 });
 
 app.use((error, request, response, next) => {
