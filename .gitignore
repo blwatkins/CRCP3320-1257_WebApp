@@ -2,3 +2,10 @@
 
 # node modules
 node_modules/
+
+# environment variables
+.env
+.env.keys
+
+# JetBrains
+.idea/

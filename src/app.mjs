@@ -5,6 +5,7 @@ import { encode } from 'html-entities';
 import { RandomColor } from './utils/random-color.mjs';
 import { RandomNumber } from './utils/random-number.mjs';
 import { History } from './utils/history.mjs';
+import { WeatherClient } from './utils/weather-client.mjs';
 
 const app = express();
 const port = 3000;
@@ -17,9 +18,10 @@ app.use(express.static('public'));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-app.get('/randomColor', (request, response) => {
+app.get('/randomColor', async (request, response) => {
   const hexColor = RandomColor.getRandomHex();
-  response.render('random-color', { hexColor: hexColor });
+  const colorName = await RandomColor.getColorName(hexColor);
+  response.render('random-color', { hexColor: hexColor, colorName: colorName });
 });
 
 app.get('/randomNumber', (request, response) => {
@@ -46,6 +48,12 @@ app.get('/pictures', (request, response) => {
 app.get('/history', async (request, response) => {
   const text = await History.getRandomThing();
   response.send(encode(text));
+});
+
+app.get('/weather', async (request, response) => {
+  const temp = await WeatherClient.getCurrentTemperature();
+  const conditions = await WeatherClient.getCurrentConditions();
+  response.json({ temperature: temp, conditions: conditions });
 });
 
 app.get('/api/randomColor', (request, response) => {
