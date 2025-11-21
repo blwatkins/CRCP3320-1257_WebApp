@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('includes/head', { title: 'All Palettes' }) %>
+<body>
+<div class="container">
+    <div class="row m-3">
+        <h1 class="text-center">All Palettes</h1>
+    </div>
+    <% for (const palette of palettes) { %>
+        <div class="row m-5">
+            <h2 class="text-center"><%= palette.name %></h2>
+            <% if (palette.source) { %>
+                <p class="text-center"><small>Palette Source: <a href="<%= palette.source %>"><%= palette.source %></a></small></p>
+            <% } %>
+
+            <!-- TODO: will this make the colors horizontal? -->
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <% for (const color of palette.colors) { %>
+                    <div class="card">
+                        <div class=" container-fluid card-img-top" style="background: <%= color %>; height: 5rem">
+                            &nbsp;
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
+    <div class="row m-5"></div>
+<%- include('includes/footer') %>
+<script src="scripts/color-name.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

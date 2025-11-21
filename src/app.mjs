@@ -6,6 +6,7 @@ import { RandomColor } from './utils/random-color.mjs';
 import { RandomNumber } from './utils/random-number.mjs';
 import { History } from './utils/history.mjs';
 import { WeatherClient } from './utils/weather-client.mjs';
+import { DatabaseClient } from './utils/database-client.mjs';
 
 const app = express();
 const port = 3000;
@@ -55,6 +56,17 @@ app.get('/weather', async (request, response) => {
   const conditions = await WeatherClient.getCurrentConditions();
   response.json({ temperature: temp, conditions: conditions });
 });
+
+app.get('/palettes', async (request, response) => {
+    const dbClient = new DatabaseClient();
+    await dbClient.initConnection();
+    const palettes = await dbClient.getAllPalettesWithColors();
+    response.render('palettes', { palettes: palettes });
+});
+
+// TODO - palette by id
+
+// TODO - add a new palette
 
 app.get('/api/randomColor', (request, response) => {
   const hexColor = RandomColor.getRandomHex();
