@@ -45,10 +45,6 @@ app.get('/randomNumber', (request, response) => {
   response.render('random-number');
 });
 
-app.get('/pictures', (request, response) => {
-  response.render('pictures');
-});
-
 app.get('/history', async (request, response) => {
   const text = await History.getRandomThing();
   response.send(encode(text));

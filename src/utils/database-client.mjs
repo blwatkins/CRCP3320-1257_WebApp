@@ -38,7 +38,7 @@ export class DatabaseClient {
 
         if (this.#dbConnection) {
             try {
-                const [rows] = await this.#dbConnection.execute('SELECT * FROM palettes, palette_colors WHERE palettes.id = palette_colors.palette_id');
+                const [rows] = await this.#dbConnection.execute('SELECT p.id, p.name, p.source, pc.color_hex FROM palettes AS p, palette_colors AS pc WHERE p.id = pc.palette_id');
 
                 for (const row of rows) {
                     const palette = palettes.find(p => p.id === row.id);
@@ -59,7 +59,6 @@ export class DatabaseClient {
             }
         }
 
-        console.log(palettes);
         return palettes;
     }
 }

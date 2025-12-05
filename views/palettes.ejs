@@ -13,11 +13,10 @@
                 <p class="text-center"><small>Palette Source: <a href="<%= palette.source %>"><%= palette.source %></a></small></p>
             <% } %>
 
-            <!-- TODO: will this make the colors horizontal? -->
-            <div class="d-flex flex-wrap justify-content-center gap-3">
+            <div class="d-flex flex-wrap justify-content-center">
                 <% for (const color of palette.colors) { %>
-                    <div class="card">
-                        <div class=" container-fluid card-img-top" style="background: <%= color %>; height: 5rem">
+                    <div class="card p-0">
+                        <div class="container-fluid card-img-top p-0" style="background: <%= color %>; height: 7rem; width: 7rem;">
                             &nbsp;
                         </div>
                     </div>

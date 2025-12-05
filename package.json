@@ -18,6 +18,7 @@
   "scripts": {
     "start": "dotenvx run -- node src/app.mjs",
     "dev": "dotenvx run -- nodemon src/app.mjs",
+    "dev:do": "dotenvx run -f .env.production -- nodemon src/app.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
