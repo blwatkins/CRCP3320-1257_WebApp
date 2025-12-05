@@ -1,5 +1,6 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
 
 import { rateLimit } from 'express-rate-limit';
 import { encode } from 'html-entities';
@@ -25,8 +26,26 @@ const limiter = rateLimit({
     ipv6Subnet: 56
 });
 
-app.use(limiter);
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: [
+                "'self'"
+            ],
+            scriptSrc: [
+                "'self'",
+                'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/',
+                'https://cdn.jsdelivr.net/npm/p5@1.11.10/'
+            ],
+            connectSrc: [
+                "'self'",
+                'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/'
+            ]
+        }
+    }
+}));
 app.use(cors());
+app.use(limiter);
 app.use(express.json());
 app.use(express.static('public'));
 
